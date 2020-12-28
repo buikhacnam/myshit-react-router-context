@@ -9,6 +9,7 @@ function ContextProvider({children}) {
     const [films, setFilms] = useState();
     const [searchValue, setSearchValue] = useState('');
     const [searchParam, setSearchParam] = useState('');
+    const [found, setFounnd] = useState(true)
     //const apiurl = `https://www.omdbapi.com/?apikey=1dfa35e4&s=${searchValue}`;
     const apiUrl2 = 'https://www.omdbapi.com/?apikey=1dfa35e4';
     const starWar = "https://www.omdbapi.com/?apikey=1dfa35e4&s=star wars";
@@ -34,8 +35,10 @@ function ContextProvider({children}) {
                     let movieData = results.data.Search;
                     console.log(movieData);
                     setFilms(movieData);
+                    if(!movieData) setFounnd(false);
             })
-
+        setSearchParam('');
+        setFounnd(true)
     }
 
     useEffect(() => {
@@ -50,7 +53,7 @@ function ContextProvider({children}) {
      
    
     return (
-        <Provider value={{movies, films, handleChange, searchValue, handleSubmit, searchParam}}>
+        <Provider value={{movies, films, handleChange, searchValue, handleSubmit, searchParam, found}}>
             {children}
         </Provider>
     )
