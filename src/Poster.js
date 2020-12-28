@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import {AppContext} from './context';
 import {Link} from 'react-router-dom';
 export default function Poster() {
-    const movies = useContext(AppContext)
+    const {movies} = useContext(AppContext)
     return (
         <div>
             <button><Link to="/">HOME</Link></button>

@@ -4,9 +4,29 @@ import axios from 'axios';
 export const AppContext = createContext();
 const {Provider} = AppContext;
 function ContextProvider({children}) {
+    //star wars
     const [movies, setMovies] = useState([]);
-    //const apiurl = "https://www.omdbapi.com/?apikey=1dfa35e4";
+    const [films, setFilms] = useState();
+    const [searchValue, setSearchValue] = useState('');
+    //const [searchParam, setSearchParam] = useState({s: ''});
+    const apiurl = `https://www.omdbapi.com/?apikey=1dfa35e4&s=${searchValue}`;
     const starWar = "https://www.omdbapi.com/?apikey=1dfa35e4&s=star wars";
+
+    const handleChange = (e) => {
+        setSearchValue(e.target.value);
+    }
+
+    const handleSubmit = (e) => {
+       e.preventDefault();
+        axios(apiurl)
+            .then(results => {
+                let movieData = results.data.Search;
+                console.log(movieData);
+                setFilms(movieData);
+        })
+      
+    }
+
     useEffect(() => {
         axios(starWar)
             .then(results => {
@@ -15,9 +35,11 @@ function ContextProvider({children}) {
                 setMovies(movieData);
         })
       }, [])
+
+     
    
     return (
-        <Provider value={movies}>
+        <Provider value={{movies, films, handleChange, searchValue, handleSubmit}}>
             {children}
         </Provider>
     )
