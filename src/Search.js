@@ -5,7 +5,7 @@ export default function Search() {
     return (
         <div>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <input placeholder="search" type='text' value={searchValue} onChange={(e) => handleChange(e)}/>
+                <input placeholder="search" type='text' onChange={(e) => handleChange(e)}/>
             </form>
         </div>
     )
